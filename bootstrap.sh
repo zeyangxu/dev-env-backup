@@ -1,6 +1,10 @@
 # install homebrew
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
+echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> /Users/bytedance/.zprofile
+
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
 # git
 brew install git
 
@@ -16,11 +20,23 @@ cp ./.zshrc ~/.zshrc
 # add custom oh-my-zsh theme config file in the system
 cp ./zebxu.zsh-theme ~/.oh-my-zsh/themes/zebxu.zsh-theme
 
+# install tmux plugins
+git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+git clone https://github.com/zsh-users/zsh-completions.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-completions
+brew install autojump
+
+# disable git status to improve performance
+git config --add --global oh-my-zsh.hide-status 1
+git config --add --global oh-my-zsh.hide-dirty 1
+
 # install tmux
 brew install tmux
 
 # replace tmux config file in the system
 cp ./.tmux.conf ~/.tmux.conf
+
+# press ctrl-b I to install tmux plugins inside tmux
 
 # neovim
 brew install neovim
@@ -34,5 +50,7 @@ cp -rf ./nvim ~/.config/nvim
 
 # download lvim config from github
 git clone https://github.com/zeyangxu/lvim-config.git lvim
-cp -rf ./lvim ~/.config/lvim
+cp -rf ./lvim/config.lua ~/.config/lvim/config.lua
 
+# rush.js
+npm install -g @microsoft/rush
